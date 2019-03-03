@@ -1,0 +1,14 @@
+[[package]]
+name = "gnuplot"
+version = "0.0.29"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+
+[[package]]
+name = "numerical_analysis"
+version = "0.1.0"
+dependencies = [
+ "gnuplot 0.0.29 (registry+https://github.com/rust-lang/crates.io-index)",
+]
+
+[metadata]
+"checksum gnuplot 0.0.29 (registry+https://github.com/rust-lang/crates.io-index)" = "a60db40d5189ff09a8a0f84640955cb52d456915fd9865ec6da74cd1cc440aef"
