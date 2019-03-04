@@ -1,5 +1,5 @@
 // implement example 1.4: truncation error & rounding error
-pub mod q1_1 {
+pub mod q1 {
   use crate::gnuplot::*;
   use crate::common::*;
 
@@ -26,7 +26,7 @@ pub mod q1_1 {
 }
 
 // errors in calculating harmonic series
-pub mod q1_3 {
+pub mod q3 {
   fn q1() -> (f32, i32) {
     let mut sum = 0.0;
     let mut n = 1;

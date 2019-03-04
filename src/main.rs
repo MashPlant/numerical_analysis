@@ -1,9 +1,10 @@
 extern crate gnuplot;
 mod lab1;
+mod lab2;
 mod common;
 
 fn main() {
-  lab1::q1_3::solve();
+  lab2::q2::solve();
 //  let mut fg = Figure::new();
 //  fg.axes2d()
 //    .set_title("A plot", &[])
