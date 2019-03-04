@@ -8,7 +8,14 @@ name = "numerical_analysis"
 version = "0.1.0"
 dependencies = [
  "gnuplot 0.0.29 (registry+https://github.com/rust-lang/crates.io-index)",
+ "special-fun 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "special-fun"
+version = "0.1.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [metadata]
 "checksum gnuplot 0.0.29 (registry+https://github.com/rust-lang/crates.io-index)" = "a60db40d5189ff09a8a0f84640955cb52d456915fd9865ec6da74cd1cc440aef"
+"checksum special-fun 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "5cde43d93062bf8040a0d30f83a8b40b2756af55ba048e007ee7c81e02276b81"

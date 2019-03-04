@@ -1,3 +1,4 @@
+#[derive(Copy, Clone)]
 pub struct F64Iter {
   cur: f64,
   // exclusive

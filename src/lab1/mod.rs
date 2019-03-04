@@ -42,7 +42,7 @@ pub mod q3 {
   }
 
   fn q2(float_res: f32, n: i32) {
-    let mut double_res = {
+    let double_res = {
       let mut sum = 0.0;
       for n in 1..n {
         sum += 1.0 / n as f64;
