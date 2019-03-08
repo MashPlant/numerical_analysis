@@ -1,6 +1,6 @@
 pub mod q6 {
-  use crate::mat::SquareMat;
-  use crate::mat::vec_dis_inf;
+  use crate::square_mat::SquareMat;
+  use crate::square_mat::vec_dis_inf;
 
   pub fn make_hilbert(n: usize) -> SquareMat {
     let mut ret = SquareMat::zeros(n);

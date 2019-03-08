@@ -113,18 +113,18 @@ impl<'a, 'b> Mul<&'b [f64]> for &'a SquareMat {
   }
 }
 
-//impl<'a, 'b> Sub<&'b SquareMat> for &'a SquareMat {
-//  type Output = SquareMat;
-//
-//  fn sub(self, rhs: &'b SquareMat) -> Self::Output {
-//    assert_eq!(self.n, rhs.n);
-//    let mut ret = self.clone();
-//    for i in 0..self.a.len() {
-//      ret.a[i] -= rhs.a[i];
-//    }
-//    ret
-//  }
-//}
+impl<'a, 'b> Sub<&'b SquareMat> for &'a SquareMat {
+  type Output = SquareMat;
+
+  fn sub(self, rhs: &'b SquareMat) -> Self::Output {
+    assert_eq!(self.n, rhs.n);
+    let mut ret = self.clone();
+    for i in 0..self.a.len() {
+      ret.a[i] -= rhs.a[i];
+    }
+    ret
+  }
+}
 
 impl Debug for SquareMat {
   fn fmt(&self, f: &mut Formatter) -> Result {
