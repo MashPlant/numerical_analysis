@@ -7,3 +7,4 @@ edition = "2018"
 [dependencies]
 gnuplot = "0.0.29"
 special-fun = "0.1.6"
+rand = "0.6"

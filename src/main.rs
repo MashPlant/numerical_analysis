@@ -1,6 +1,8 @@
 #![allow(dead_code)]
+
 extern crate gnuplot;
 extern crate special_fun;
+extern crate rand;
 
 mod lab1;
 mod lab2;
@@ -11,8 +13,11 @@ mod f64iter;
 mod square_mat;
 mod sparse_mat;
 
+
+use rand::Rng;
+
 fn main() {
-  lab4::q2::solve();
+  lab5::q1::solve();
 //  lab3::q6::solve();
 //  let m = mat::SquareMat::all(10,1.0);
 //  println!("{:?}", m);

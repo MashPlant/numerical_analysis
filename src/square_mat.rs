@@ -14,8 +14,13 @@ impl SquareMat {
   }
 
   pub fn zeros(n: usize) -> SquareMat {
-    assert!(n > 0);
     SquareMat::all(n, 0.0)
+  }
+
+  pub fn from_slice(s: &[f64]) -> SquareMat {
+    let n = (s.len() as f64).sqrt() as usize;
+    assert_eq!(n * n, s.len());
+    SquareMat { a: Box::from(s), n }
   }
 
   pub fn n(&self) -> usize {
