@@ -102,7 +102,7 @@ pub mod q3 {
   pub fn solve() {
     use crate::special_fun::FloatSpecial;
     use crate::gnuplot::*;
-    use crate::common::*;
+    use crate::f64iter::*;
     use std::iter::repeat;
     const MAX: f64 = 40.0;
     let f = |x: f64| x.besselj(0.0);

@@ -1,7 +1,7 @@
 // implement example 1.4: truncation error & rounding error
 pub mod q1 {
   use crate::gnuplot::*;
-  use crate::common::*;
+  use crate::f64iter::*;
 
   pub fn solve() {
     const M: f64 = 1.0;
