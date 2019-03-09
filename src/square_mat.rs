@@ -23,6 +23,14 @@ impl SquareMat {
     SquareMat { a: Box::from(s), n }
   }
 
+  pub fn identity(n: usize) -> SquareMat {
+    let mut ret = SquareMat::zeros(n);
+    for i in 0..n {
+      ret[i][i] = 1.0;
+    }
+    ret
+  }
+
   pub fn n(&self) -> usize {
     self.n
   }
@@ -41,6 +49,17 @@ impl SquareMat {
   pub fn transpose_copy(&self) -> SquareMat {
     let mut ret = self.clone();
     ret.transpose();
+    ret
+  }
+
+  pub fn shrink_copy(&self, n: usize) -> SquareMat {
+    assert!(n < self.n);
+    let mut ret = SquareMat::zeros(n);
+    for i in 0..n {
+      for j in 0..n {
+        ret[i][j] = self[i][j];
+      }
+    }
     ret
   }
 
@@ -64,6 +83,11 @@ pub fn vec_dis_inf(a: &[f64], b: &[f64]) -> f64 {
     ret = ret.max((a[i] - b[i]).abs());
   }
   ret
+}
+
+pub fn vec_dot(a: &[f64], b: &[f64]) -> f64 {
+  assert_eq!(a.len(), b.len());
+  a.iter().zip(b.iter()).map(|(x, y)| *x * *y).sum()
 }
 
 impl Index<usize> for SquareMat {
