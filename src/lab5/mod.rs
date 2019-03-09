@@ -26,9 +26,11 @@ pub mod q1 {
 
   pub fn solve() {
     let a = SquareMat::from_slice(&[5.0, -4.0, 1.0, -4.0, 6.0, -4.0, 1.0, -4.0, 7.0]);
-    println!("{:?}", power_method(&a, 1e-5));
+    let (e, v) = power_method(&a, 1e-5);
+    println!("eigen = {:?} vec = {:?}", e, v);
     let a = SquareMat::from_slice(&[25.0, -41.0, 10.0, -6.0, -41.0, 68.0, -17.0, 10.0, 10.0, -17.0, 5.0, -3.0, -6.0, 10.0, -3.0, 2.0]);
-    println!("{:?}", power_method(&a, 1e-5));
+    let (e, v) = power_method(&a, 1e-5);
+    println!("eigen = {:?} vec = {:?}", e, v);
   }
 }
 
@@ -98,37 +100,45 @@ pub mod q3 {
 }
 
 pub mod q4 {
-  use crate::square_mat::{SquareMat, vec_dot};
+  use crate::square_mat::SquareMat;
   use super::q3::qr;
 
-  pub fn shift_qr_method(a: &mut SquareMat, eps: f64) {
-    let mut k = a.n();
+  pub fn shift_qr_method(mut a: SquareMat, eps: f64) -> Box<[f64]> {
     let mut iter = 0;
-    while k > 0 && a[k][k - 1] > eps {
+    let mut eigen = Vec::new();
+    while a.n() > 0 {
       iter += 1;
-      let s = a[k][k];
-      for j in 0..k {
-        a[j][j] -= s;
-      }
-      let q = qr(a);
-      *a = &*a * &q;
-      for j in 0..k {
-        a[j][j] -= s;
-      }
-
       println!("iter {:?}\n{:?}", iter, a);
+      let n = a.n();
+      if n == 1 || a[n - 1][n - 2].abs() < eps {
+        eigen.push(a[n - 1][n - 1]);
+        a = a.shrink_copy(n - 1);
+        continue;
+      }
+      let s = a[n - 1][n - 1];
+      for j in 0..n {
+        a[j][j] -= s;
+      }
+      let q = qr(&mut a);
+      a = &a * &q;
+      for j in 0..n {
+        a[j][j] += s;
+      }
+      if a[n - 1][n - 2].abs() < eps {
+        eigen.push(a[n - 1][n - 1]);
+        a = a.shrink_copy(n - 1);
+      }
     }
+    eigen.into()
   }
 
   pub fn solve() {
-    let mut a = SquareMat::from_slice(&[
+    let a = SquareMat::from_slice(&[
       0.5, 0.5, 0.5, 0.5,
       0.5, 0.5, -0.5, -0.5,
       0.5, -0.5, 0.5, -0.5,
       0.5, -0.5, -0.5, 0.5,
     ]);
-    shift_qr_method(&mut a);
+    println!("{:?}", shift_qr_method(a, 1e-10));
   }
 }
-
-//const A: [[f64; 4]; 4] = [[0.5, 0.5, 0.5, 0.5, ], [0.5, 0.5, -0.5, -0.5, ], [0.5, -0.5, 0.5, -0.5, ], [0.5, -0.5, -0.5, 0.5, ], ];

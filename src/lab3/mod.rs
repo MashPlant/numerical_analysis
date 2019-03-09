@@ -65,19 +65,28 @@ pub mod q6 {
 
   pub fn solve() {
     use std::iter::repeat;
-    let h = make_hilbert(10);
-    let x = repeat(1.0).take(10).collect::<Box<[_]>>();
-    let mut b = &h * x.as_ref();
-    let xs = solve_positive_definite(&h, &b);
-    let bs = &h * xs.as_ref();
-    println!("{:?}", vec_dis_inf(&xs, &x));
-    println!("{:?}", vec_dis_inf(&bs, &b));
-    for b in b.iter_mut() {
-      *b += 1e-7;
+    for &n in &[10, 8, 12] {
+      let h = make_hilbert(n);
+      let x = repeat(1.0).take(n).collect::<Box<[_]>>();
+      let mut b = &h * x.as_ref();
+
+      println!("n = {}", n);
+      println!("before disturbance");
+      let xs = solve_positive_definite(&h, &b);
+      let bs = &h * xs.as_ref();
+      println!("solve = {:?}", xs);
+      println!("inf norm of delta b = {:?}", vec_dis_inf(&bs, &b));
+      println!("inf norm of delta x = {:?}", vec_dis_inf(&xs, &x));
+
+      for b in b.iter_mut() { *b += 1e-7; }
+
+      println!("after disturbance");
+      let xs = solve_positive_definite(&h, &b);
+      let bs = &h * xs.as_ref();
+      println!("inf norm of delta b = {:?}", vec_dis_inf(&bs, &b));
+      println!("inf norm of delta x = {:?}", vec_dis_inf(&xs, &x));
+
+      println!();
     }
-    let xs = solve_positive_definite(&h, &b);
-    let bs = &h * xs.as_ref();
-    println!("{:?}", vec_dis_inf(&xs, &x));
-    println!("{:?}", vec_dis_inf(&bs, &b));
   }
 }

@@ -55,12 +55,12 @@ pub mod q3 {
   fn q3() {
     use std::f64::EPSILON;
     // assume: sigma(1/n) = ln(n) + euler constant
-    const E_MACH: f64 = EPSILON / 2.0;
+    const E_MACH_2: f64 = EPSILON * 0.25;
     const EULER_CONSTANT: f64 = 0.57721566490153286060651209;
     let ratio = |x: f64| (1.0 / x) / (x.ln() + EULER_CONSTANT);
     let mut n = 1.0;
     loop {
-      if ratio(n) < E_MACH {
+      if ratio(n) < E_MACH_2 {
         break;
       }
       n *= 2.0;
@@ -69,7 +69,7 @@ pub mod q3 {
     let (mut lo, mut hi) = (n / 2, n);
     while hi > lo + 1 {
       let mid = (lo + hi) / 2;
-      if ratio(mid as f64) < E_MACH {
+      if ratio(mid as f64) < E_MACH_2 {
         hi = mid;
       } else {
         lo = mid;
