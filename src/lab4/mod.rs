@@ -23,7 +23,7 @@ pub mod q2 {
         let old = x[i];
         x[i] = (b[i] - sum) / a.diagonal_at(i);
         let diff = (old - x[i]).abs();
-        if old * eps < diff { can_break = false; }
+        if old.abs() * eps < diff { can_break = false; }
       }
       if can_break { break iter; }
     }
@@ -45,7 +45,7 @@ pub mod q2 {
         let old = x[i];
         x[i] = (b[i] - sum) / a.diagonal_at(i);
         let diff = (old - x[i]).abs();
-        if old * eps < diff { can_break = false; }
+        if old.abs() * eps < diff { can_break = false; }
       }
       if can_break { break iter; }
     }
@@ -67,10 +67,21 @@ pub mod q2 {
         let old = x[i];
         x[i] = (1.0 - w) * x[i] + w * (b[i] - sum) / a.diagonal_at(i);
         let diff = (old - x[i]).abs();
-        if old * eps < diff { can_break = false; }
+        if old.abs() * eps < diff { can_break = false; }
       }
       if can_break { break iter; }
     }
+  }
+
+  pub fn tmp() {
+    let mut a = SparseMat::from_diagonal(vec![5.0, 4.0, 10.0].into_iter());
+    a.add(0, 1, 2.0);
+    a.add(0, 2, 1.0);
+    a.add(1, 0, -1.0);
+    a.add(1, 2, 2.0);
+    a.add(2, 0, 2.0);
+    a.add(2, 1, -3.0);
+    sor(&a, &[-12.0, 20.0, 3.0], &mut [0.0, 0.0, 0.0], 1e-3, 0.9);
   }
 
   fn make_a(eps: f64, n: usize, h: f64) -> SparseMat {

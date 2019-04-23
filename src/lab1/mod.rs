@@ -54,7 +54,7 @@ pub mod q3 {
 
   fn q3() {
     use std::f64::EPSILON;
-    // assume: sigma(1/n) = ln(n) + euler constant
+    // assume: sigma(1/n) == ln(n) + euler constant
     const E_MACH_2: f64 = EPSILON * 0.25;
     const EULER_CONSTANT: f64 = 0.57721566490153286060651209;
     let ratio = |x: f64| (1.0 / x) / (x.ln() + EULER_CONSTANT);

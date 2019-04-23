@@ -8,6 +8,12 @@ pub mod q2 {
       }
       let s = v / derivative(x0);
       let mut x1 = x0 - s;
+      if value(x1).abs() < v.abs() {
+        x0 = x1;
+        eprintln!("iter{}: lambda unused, x={}", iter, x0);
+        iter += 1;
+        continue;
+      }
       let mut l = l0;
       while value(x1).abs() >= v.abs() {
         x1 = x0 - l * s;
@@ -33,20 +39,35 @@ pub mod q2 {
   }
 
   pub fn solve() {
-    newton(|x| x * x * x - x - 1.0, |x| 3.0 * x * x - 1.0, 0.6, 1e-10);
-    eprintln!();
+    eprintln!("solving 3x^3-x-1=0, x0=0.6");
+
+    eprintln!("damped newton method");
     damped_newton(|x| x * x * x - x - 1.0, |x| 3.0 * x * x - 1.0, 0.6, 0.95, 1e-10);
     eprintln!();
-    newton(|x| -x * x * x + 5.0 * x, |x| -3.0 * x * x + 5.0, 1.2, 1e-10);
+
+    eprintln!("newton method");
+    newton(|x| x * x * x - x - 1.0, |x| 3.0 * x * x - 1.0, 0.6, 1e-10);
     eprintln!();
-    damped_newton(|x| -x * x * x + 5.0 * x, |x| -3.0 * x * x + 5.0, 1.2, 0.95, 1e-10);
+
+    eprintln!("fzero says x={}", super::q3::fzerotx(|x| x * x * x - x - 1.0, 0.0, 2.0, 1e-10));
+    eprintln!();
+
+    eprintln!("solving -x^3+5x=0, x0=1.35");
+
+    eprintln!("damped newton method");
+    damped_newton(|x| -x * x * x + 5.0 * x, |x| -3.0 * x * x + 5.0, 1.35, 0.95, 1e-10);
+    eprintln!();
+
+    eprintln!("newton method");
+    newton(|x| -x * x * x + 5.0 * x, |x| -3.0 * x * x + 5.0, 1.35, 1e-10);
+    eprintln!();
+
+    eprintln!("fzero says x={}", super::q3::fzerotx(|x| -x * x * x + 5.0 * x, 1.0, 3.0, 1e-10));
     eprintln!();
   }
 }
 
 pub mod q3 {
-//  fn besselj0(x: f64) {}
-
   pub fn fzerotx<F: Fn(f64) -> f64>(f: F, mut a: f64, mut b: f64, eps: f64) -> f64 {
     let (mut fa, mut fb) = (f(a), f(b));
     assert_ne!(fa.signum(), fb.signum(), "function must change sign on the interval");
