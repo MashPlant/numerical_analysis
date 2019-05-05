@@ -1,5 +1,5 @@
 ---
-title: "Chap3 线性方程组的直接解法 实验报告"
+title: "Chap3 线性方程组的直接解法"
 author: "李晨昊 2017011466"
 date: "2019-3-9"
 output:

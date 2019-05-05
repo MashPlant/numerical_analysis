@@ -111,7 +111,7 @@ pub mod q2 {
         crate::lab3::q6::gauss(&mut a.to_dense(), gauss.as_mut());
 
         macro_rules! plot {
-        ($solve: expr, $title: expr) => {
+          ($solve: expr, $title: expr) => {
             let mut fig = Figure::new();
             let xs = F64Iter::from_step(H, 1.0, H);
             fig.axes2d()

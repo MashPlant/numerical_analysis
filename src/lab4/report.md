@@ -1,5 +1,5 @@
 ---
-title: "Chap4 线性方程组的迭代解法 实验报告"
+title: "Chap4 线性方程组的迭代解法"
 author: "李晨昊 2017011466"
 date: "2019-3-9"
 output:
@@ -87,56 +87,23 @@ sor(w = 1.1): iter = 137, inf norm dist = 0.004950070249054805
 
 经过一些尝试我发现，对于`eps = 0.0001`的情况，sor解法取w尽量接近于1会收敛较快；但对于其他情况，sor解法取w稍大于1会收敛较快。最终代码里就统一取1.1了。
 
-我还绘制了对应的图形，可以更加直观地看出误差情况
+我还绘制了对应的图形，可以更加直观地看出误差情况，其中精确解(微分方程的解析解)用曲线画出，迭代法的解和gauss消去法的解用带叉的折线画出，因为二者几乎完全相等，因此只能看到一条带叉的曲线。这里只列出了jacobi迭代法的结果，因为其它两种方法得到的结果也几乎是完全一样的。
 
 \begin{center}
-\includegraphics[width=0.7\linewidth]{jacobi_1.png}
-\end{center}
-
-<!-- \begin{center}
-\includegraphics[width=0.7\linewidth]{jacobi_0.1.png}
+\includegraphics[width=0.7\linewidth]{1.png}
 \end{center}
 
 \begin{center}
-\includegraphics[width=0.7\linewidth]{jacobi_0.01.png}
+\includegraphics[width=0.7\linewidth]{0_1.png}
 \end{center}
 
 \begin{center}
-\includegraphics[width=0.7\linewidth]{jacobi_0.0001.png}
+\includegraphics[width=0.7\linewidth]{0_01.png}
 \end{center}
 
 \begin{center}
-\includegraphics[width=0.7\linewidth]{gs_1.png}
+\includegraphics[width=0.7\linewidth]{0_0001.png}
 \end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{gs_0.1.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{gs_0.01.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{(gs_0.0001.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{sor_1.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{sor_0.1.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{sor_0.01.png}
-\end{center}
-
-\begin{center}
-\includegraphics[width=0.7\linewidth]{sor_0.0001.png}
-
-\end{center} -->
 
 ## 心得体会
 其实这几个迭代方法的收敛速度都比我期望的慢一些，但是如考虑到稀疏矩阵和向量乘法的时间开销很小，那么这几种方法都还算是比较高效的。另外，一些简单的启发式的初始值选择方式可以显著加快收敛速度。

@@ -1,5 +1,5 @@
 ---
-title: "Chap1 数值计算导论 实验报告"
+title: "Chap1 数值计算导论"
 author: "李晨昊 2017011466"
 date: "2019-3-3"
 output:

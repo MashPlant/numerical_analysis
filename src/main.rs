@@ -14,18 +14,14 @@ mod square_mat;
 mod sparse_mat;
 
 fn main() {
-//  lab1::q1::solve();
-//  lab1::q3::solve();
-//  lab2::q2::solve();
-//  lab2::q3::solve();
-<<<<<<< HEAD
- lab3::q6::solve();
-  // lab4::q2::solve();
-=======
-//  lab3::q6::solve();
-//  lab4::q2::solve();
->>>>>>> 4db80a1f3c8d3d1140129aeadf1583ffb4571f21
-//  lab5::q1::solve();
-//  lab5::q3::solve();
-//  lab5::q4::solve();
+  // select a lab that you want to run
+  lab1::q1::solve();
+  lab1::q3::solve();
+  lab2::q2::solve();
+  lab2::q3::solve();
+  lab3::q6::solve();
+  lab4::q2::solve();
+  lab5::q1::solve();
+  lab5::q3::solve();
+  lab5::q4::solve();
 }

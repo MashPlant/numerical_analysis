@@ -1,5 +1,5 @@
 ---
-title: "Chap2 非线性方程求根 实验报告"
+title: "Chap2 非线性方程求根"
 author: "李晨昊 2017011466"
 date: "2019-3-4"
 output:
