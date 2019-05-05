@@ -17,10 +17,9 @@ impl SquareMat {
     SquareMat::all(n, 0.0)
   }
 
-  pub fn from_slice(s: &[f64]) -> SquareMat {
+  pub fn from_slice(s: &[f64]) -> Option<SquareMat> {
     let n = (s.len() as f64).sqrt() as usize;
-    assert_eq!(n * n, s.len());
-    SquareMat { a: Box::from(s), n }
+    if n * n == s.len() { Some(SquareMat { a: Box::from(s), n }) } else { None }
   }
 
   pub fn identity(n: usize) -> SquareMat {

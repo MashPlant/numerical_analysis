@@ -15,8 +15,11 @@ pub mod q2 {
         continue;
       }
       let mut l = l0;
-      while value(x1).abs() >= v.abs() {
+      loop {
         x1 = x0 - l * s;
+        if value(x1).abs() < v.abs() {
+          break;
+        }
         l *= 0.5;
       }
       x0 = x1;

@@ -1,6 +1,42 @@
 pub mod q6 {
   use crate::square_mat::*;
 
+  pub fn gauss(a: &mut SquareMat, b: &mut [f64]) {
+    assert_eq!(a.n(), b.len());
+    let n = a.n();
+    for k in 0..n {
+      let mut max = a[k][k].abs();
+      let mut which = k;
+      for i in k + 1..n {
+        if a[i][k].abs() > max {
+          max = a[i][k].abs();
+          which = i;
+        }
+      }
+      macro_rules! swap {
+        ($a:expr, $b: expr) => {
+           let tmp = $a;
+           $a = $b;
+           $b = tmp;
+        };
+      }
+      for i in k..n {
+        swap!(a[which][i], a[k][i]);
+      }
+      swap!(b[which], b[k]);
+      for i in k + 1..n {
+        let fac = -a[i][k] / a[k][k];
+        for j in k..n {
+          a[i][j] += fac * a[k][j];
+        }
+        b[i] += fac * b[k];
+      }
+    }
+    for i in (0..n).rev() {
+      b[i] = (b[i] - b[i + 1..n].iter().zip(a[i][i + 1..n].iter()).map(|(&a, &b)| a * b).sum::<f64>()) / a[i][i];
+    }
+  }
+
   pub fn make_hilbert(n: usize) -> SquareMat {
     let mut ret = SquareMat::zeros(n);
     for i in 0..n {
