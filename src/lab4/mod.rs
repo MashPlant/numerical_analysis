@@ -98,8 +98,8 @@ pub mod q2 {
     const N: usize = 100;
     const H: f64 = 1.0 / N as f64;
     let mut b = [A * H * H; N - 1];
-    for init in &[repeat(0.0).take(N - 1).collect::<Box<[_]>>(),
-      F64Iter::from_step(H, 1.0, H).collect::<Box<[_]>>()] {
+    for (init_kind, init) in [repeat(0.0).take(N - 1).collect::<Box<[_]>>(),
+      F64Iter::from_step(H, 1.0, H).collect::<Box<[_]>>()].iter().enumerate() {
       for &eps in &[1.0, 0.1, 0.01, 0.0001] {
         println!("eps = {}", eps);
         // no need to change b[0], y0 is missed, but y0 = 0, so b[0] will not change
@@ -107,36 +107,38 @@ pub mod q2 {
         let a = make_a(eps, N - 1, H);
         let acc = F64Iter::from_step(H, 1.0, H).map(|x|
           (1.0 - A) / (1.0 - (-1.0 / eps).exp()) * (1.0 - (-x / eps).exp()) + A * x).collect::<Box<[_]>>();
-
-
-        let x = init.clone();
+        let mut gauss = b.iter().map(|&x| x).collect::<Box<_>>();
+        crate::lab3::q6::gauss(&mut a.to_dense(), gauss.as_mut());
 
         macro_rules! plot {
-        ($title: expr) => {
+        ($solve: expr, $title: expr) => {
             let mut fig = Figure::new();
             let xs = F64Iter::from_step(H, 1.0, H);
             fig.axes2d()
               .set_title(&format!("method = {}, n = {}, a = {}, eps = {}", $title, N, A, eps), &[])
               .lines(xs, acc.as_ref(), &[])
-              .lines_points(xs, x.as_ref(), &[]);
+              .lines_points(xs, $solve.as_ref(), &[])
+              .lines_points(xs, gauss.as_ref(), &[]);
             fig.show();
           };
         }
 
         let mut x = init.clone();
         let iter = jacobi(&a, &b, &mut x, 1e-5);
-        println!("jacobi: iter = {}, inf norm dist = {}", iter, vec_dis_inf(&x, &acc));
-        plot!("jacobi");
+        println!("jacobi: iter = {}, inf norm dist = {}", iter, vec_dis_inf(&x, &gauss));
+        if init_kind == 0 {
+          plot!(x, "jacobi");
+        }
 
-        let mut x = init.clone();
+        x.clone_from_slice(init);
         let iter = gs(&a, &b, &mut x, 1e-5);
-        println!("gs: iter = {}, inf norm dist = {}", iter, vec_dis_inf(&x, &acc));
-        plot!("gs");
+        println!("gs: iter = {}, inf norm dist = {}", iter, vec_dis_inf(&x, &gauss));
+//        plot!(x, "gs");
 
-        let mut x = init.clone();
+        x.clone_from_slice(init);
         let iter = sor(&a, &b, &mut x, 1e-5, 1.1);
-        println!("sor(w = {}): iter = {}, inf norm dist = {}", 1.1, iter, vec_dis_inf(&x, &acc));
-        plot!(&format!("sor(w = {})", 1.1));
+        println!("sor(w = {}): iter = {}, inf norm dist = {}", 1.1, iter, vec_dis_inf(&x, &gauss));
+//        plot!(x, &format!("sor(w = {})", 1.1));
 
         println!();
       }

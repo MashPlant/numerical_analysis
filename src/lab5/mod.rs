@@ -25,10 +25,15 @@ pub mod q1 {
   }
 
   pub fn solve() {
-    let a = SquareMat::from_slice(&[5.0, -4.0, 1.0, -4.0, 6.0, -4.0, 1.0, -4.0, 7.0]);
+    let a = SquareMat::from_slice(&[5.0, -4.0, 1.0, -4.0, 6.0, -4.0, 1.0, -4.0, 7.0]).unwrap();
     let (e, v) = power_method(&a, 1e-5);
     println!("eigen = {:?} vec = {:?}", e, v);
-    let a = SquareMat::from_slice(&[25.0, -41.0, 10.0, -6.0, -41.0, 68.0, -17.0, 10.0, 10.0, -17.0, 5.0, -3.0, -6.0, 10.0, -3.0, 2.0]);
+    let a = SquareMat::from_slice(&[
+      25.0, -41.0, 10.0, -6.0,
+      -41.0, 68.0, -17.0, 10.0,
+      10.0, -17.0, 5.0, -3.0,
+      -6.0, 10.0, -3.0, 2.0
+    ]).unwrap();
     let (e, v) = power_method(&a, 1e-5);
     println!("eigen = {:?} vec = {:?}", e, v);
   }
@@ -94,7 +99,7 @@ pub mod q3 {
       0.5, 0.5, -0.5, -0.5,
       0.5, -0.5, 0.5, -0.5,
       0.5, -0.5, -0.5, 0.5,
-    ]);
+    ]).unwrap();
     qr_method(&mut a);
   }
 }
@@ -138,7 +143,7 @@ pub mod q4 {
       0.5, 0.5, -0.5, -0.5,
       0.5, -0.5, 0.5, -0.5,
       0.5, -0.5, -0.5, 0.5,
-    ]);
-    println!("{:?}", shift_qr_method(a, 1e-10));
+    ]).unwrap();
+    println!("eig = {:?}", shift_qr_method(a, 1e-10));
   }
 }
