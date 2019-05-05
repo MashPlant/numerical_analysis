@@ -1,6 +1,5 @@
 pub mod q6 {
-  use crate::square_mat::SquareMat;
-  use crate::square_mat::vec_dis_inf;
+  use crate::square_mat::*;
 
   pub fn make_hilbert(n: usize) -> SquareMat {
     let mut ret = SquareMat::zeros(n);
@@ -85,6 +84,8 @@ pub mod q6 {
       let bs = &h * xs.as_ref();
       println!("inf norm of delta b = {:?}", vec_dis_inf(&bs, &b));
       println!("inf norm of delta x = {:?}", vec_dis_inf(&xs, &x));
+
+      println!("problem cond = {:?}", (vec_dis_inf(&xs, &x) / vec_norm_inf(&x)) / (1e-7 / vec_norm_inf(&b)));
 
       println!();
     }

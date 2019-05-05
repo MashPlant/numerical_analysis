@@ -75,6 +75,14 @@ impl SquareMat {
   }
 }
 
+pub fn vec_norm_inf(a: &[f64]) -> f64 {
+  let mut ret = 0.0f64;
+  for x in a {
+    ret = ret.max(x.abs());
+  }
+  ret
+}
+
 pub fn vec_dis_inf(a: &[f64], b: &[f64]) -> f64 {
   assert_eq!(a.len(), b.len());
   let mut ret = 0.0f64;

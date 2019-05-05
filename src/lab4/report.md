@@ -1,7 +1,22 @@
-# Chap4 线性方程组的迭代解法 实验报告
-# 李晨昊 2017011466
+---
+title: "Chap4 线性方程组的迭代解法 实验报告"
+author: "李晨昊 2017011466"
+date: "2019-3-9"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: yes
+    toc: yes
+  word_document:
+    toc: yes
+  html_document:
+    toc: yes
+header-includes: \usepackage{ctex} \usepackage{graphicx} \usepackage{amssymb}
+---
 
-## 运行代码方法
+\newpage
+
+# 运行代码
 
 环境要求：rust，gnuplot
 
@@ -10,11 +25,11 @@
 cargo run
 ```
 
-## q4.2
-### 任务
+# q4.2
+## 任务
 实现jacobi，gs，sor三种迭代解法，利用它们分别解一个由微分方程导出的差分方程组
 
-### 解题思路
+## 解题思路
 jacobi，gs，sor三种迭代解法均按照课本上描述的解法即可；精度控制由用户传入eps参数，每次更新解时检查相对变化是否超过eps，如果某轮迭代没有一个分量超过即迭代完成。
 
 关于初值，我采用了两种方式：全部赋0和按照$y=x$赋值(主要是考虑到本题的函数的大致图像情况)。
@@ -23,7 +38,7 @@ jacobi，gs，sor三种迭代解法均按照课本上描述的解法即可；精
 
 差分方程组的$b$向量没有在课本上描述清楚。经过分析，矩阵$A$和向量$b$的大小都应该是$n-1$，$b$除了最后一个分量之外都为$ah^2$，最后一个分量因为缺少$y_n$项，值应为$ah^2-1.0*(\epsilon +h)$(第一个分量也缺少$y_0$，但是$y_0=0$，所以没有影响)
 
-### 实验结果
+## 实验结果
 输出如下
 ```
 # init: all 0
@@ -74,19 +89,54 @@ sor(w = 1.1): iter = 137, inf norm dist = 0.004950070249054805
 
 我还绘制了对应的图形，可以更加直观地看出误差情况
 
-![](jacobi_1.png)
-![](jacobi_0.1.png)
-![](jacobi_0.01.png)
-![](jacobi_0.0001.png)
-![](gs_1.png)
-![](gs_0.1.png)
-![](gs_0.01.png)
-![](gs_0.0001.png)
-![](sor_1.png)
-![](sor_0.1.png)
-![](sor_0.01.png)
-![](sor_0.0001.png)
+\begin{center}
+\includegraphics[width=0.7\linewidth]{jacobi_1.png}
+\end{center}
 
+<!-- \begin{center}
+\includegraphics[width=0.7\linewidth]{jacobi_0.1.png}
+\end{center}
 
-### 心得体会
+\begin{center}
+\includegraphics[width=0.7\linewidth]{jacobi_0.01.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{jacobi_0.0001.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{gs_1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{gs_0.1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{gs_0.01.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{(gs_0.0001.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{sor_1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{sor_0.1.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{sor_0.01.png}
+\end{center}
+
+\begin{center}
+\includegraphics[width=0.7\linewidth]{sor_0.0001.png}
+
+\end{center} -->
+
+## 心得体会
 其实这几个迭代方法的收敛速度都比我期望的慢一些，但是如考虑到稀疏矩阵和向量乘法的时间开销很小，那么这几种方法都还算是比较高效的。另外，一些简单的启发式的初始值选择方式可以显著加快收敛速度。
